@@ -23,7 +23,7 @@
         </whitelist>
     </filter>
     <php>
-        <env name="DB_DATABASE" value="quarkspark-test-testing"/>
+        <env name="DB_DATABASE" value="quarkspark_test_testing"/>
         <env name="DB_USERNAME" value="root"/>
         <env name="DB_PASSWORD" value=""/>
         <env name="APP_ENV" value="testing"/>
