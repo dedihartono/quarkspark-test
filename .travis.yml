@@ -11,7 +11,7 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - mysql -e 'CREATE DATABASE quarkspark-test-testing;'
+  - mysql -e 'CREATE DATABASE quarkspark_testing;'
   - cp phpunit_travis.xml phpunit.xml
 
 script:
