@@ -50,6 +50,11 @@
                     { data: 'updated_at', name: 'updated_at' }
                 ]
             });
-        });
+
+
+
+    });
+
+
 </script>
 @endsection
