@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="{{ asset('template/libs/jvectormap/jquery-jvectormap.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('template/dist/css/AdminLTE.min.css') }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset('template/libs/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
     <!-- Theme style -->
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -56,6 +58,9 @@
         <script src="{{ asset('template/libs/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
         <!-- ChartJS -->
         <script src="{{ asset('template/libs/chart.js/Chart.js') }}"></script>
+        <!-- DataTables -->
+        <script src="{{ asset('template/libs/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+        <script src="{{ asset('template/libs/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
         {{-- <script src="{{ asset('template/dist/js/pages/dashboard2.js') }}"></script> --}}
         <!-- AdminLTE for demo purposes -->

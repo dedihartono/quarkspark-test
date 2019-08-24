@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -24,5 +26,10 @@ class UserController extends Controller
     public function index()
     {
         return view('user.user');
+    }
+
+    public function json()
+    {
+        return Datatables::of(User::where('role','!=','admin')->get())->make(true);
     }
 }
