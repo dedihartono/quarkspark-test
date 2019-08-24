@@ -80,7 +80,7 @@
     let table = $('#category_table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: 'json',
+        ajax: 'category/json',
         columns: [
             { data: 'id', name: 'id' , 'visible':false},
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false,searchable: false},
@@ -107,7 +107,6 @@
             $('#category_modal').modal('show');
             $('#category_id').val(data.id);
             $('#name').val(data.name);
-            $('#email').val(data.email);
         })
     });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use DataTables;
+
 class CategoryController extends Controller
 {
     /**
@@ -26,12 +27,12 @@ class CategoryController extends Controller
     {
         return view('category.category');
     }
-/**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    /**
+         * Store a newly created resource in storage.
+         *
+         * @param  \Illuminate\Http\Request  $request
+         * @return \Illuminate\Http\Response
+         */
     public function store(Request $request)
     {
         $categoryId = $request->category_id;
@@ -39,7 +40,8 @@ class CategoryController extends Controller
             ['id' => $categoryId],
             [
                 'name' => $request->name,
-            ]);
+            ]
+        );
         return response()->json(['success'=>'Category saved successfully.']);
     }
 
