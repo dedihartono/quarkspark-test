@@ -4,18 +4,18 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licenses"></a>
 </p>
 
-#feature:
+# feature:
 - Multi User role : admin and user
 - SMTP Gmail
 - Admin LTE Theme
 - Yajra Datatable 
 
-#use case
+# use case
 - Category
 - Product
 - User
 
-#Instalation
+# Instalation
 1. Open terminal and Run :
 2. git clone https://github.com/dedihartono/quarkspark-test.git
 3. quarkspark-test
@@ -29,7 +29,7 @@ Note :
 PC installed PHP 7.1++
 PC installer composer
 
-Demo : http://quarkspark.herokuapp.com/
+# Demo : http://quarkspark.herokuapp.com/
 email : admin@example.com pass: 123456 (admin)
 for see others users, you can open on application on user menu.
  
