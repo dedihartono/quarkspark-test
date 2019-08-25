@@ -154,6 +154,8 @@
     $('body').on('click', '.edit_product', function () {
         let product_id = $(this).data('id');
         let isAdmin = "{{ auth()->user()->isAdmin }}";
+        console.log(isAdmin);
+        console.log(isAdmin != 0);
         $.get('{{ url("product/edit") }}/' + product_id , function (data) {
             $('#modal_header').html("Edit Product");
             $('#save_button').val("edit_product");
