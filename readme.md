@@ -4,7 +4,7 @@
 <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="Licenses"></a>
 </p>
 
-# feature:
+# feature
 - Multi User role : admin and user
 - SMTP Gmail
 - Admin LTE Theme
@@ -25,6 +25,7 @@
 6. Setting your ENV (environment)
 7. php artisan migrate --seed
 8. php artisan serve
+
 Note :
 PC installed PHP 7.1++
 PC installer composer
