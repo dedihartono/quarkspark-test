@@ -133,6 +133,10 @@
                             <input type="text" class="form-control" value="{{ session('email_session') ?? '' }}"
                                 required name="email" id="email" placeholder="Enter email">
                         </div>
+                        <div class="form-group">
+                            it's for test smpt Gmail,
+                            You can set your email to recived verification notif.
+                        </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
                             <button type="button" id="verification_button" value="create"
