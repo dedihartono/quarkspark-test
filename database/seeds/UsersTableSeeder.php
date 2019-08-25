@@ -34,7 +34,7 @@ class UsersTableSeeder extends Seeder
         $model = new \App\User;
         $model->name = 'admin';
         $model->email = 'admin@example.com';
-        $model->isadmin = 1;
+        $model->isAdmin = 1;
         $model->password = password_hash('123456', PASSWORD_BCRYPT);
         $model->remember_token = str_random(10);
         $model->save();
