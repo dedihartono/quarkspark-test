@@ -18,11 +18,9 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    @if(auth()->user()->isAdmin == 1)
                     <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)"
                         id="create_category">Add
                         Data</button>
-                    @endif
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered" id="category_table">
