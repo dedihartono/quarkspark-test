@@ -30,9 +30,9 @@ PC installed PHP 7.1++
 PC installer composer
 
 # Demo : http://quarkspark.herokuapp.com/
--email : admin@example.com 
--password: 123456 (admin)
+- email : admin@example.com 
+- password: 123456 (admin)
 
-for see others users, you can open on application on user menu
-and the password is 'secret'
+and for see others users, you can open on application on user menu
+and the password is : secret
  
