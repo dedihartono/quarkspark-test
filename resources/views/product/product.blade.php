@@ -18,8 +18,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)" id="create_product">Add
+                    @if(auth()->user()->isAdmin !== 1)
+                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)"
+                        id="create_product">Add
                         Data</button>
+                    @endif
                 </div>
                 <div class="box-body table-responsice">
                     <table class="table table-bordered" id="product_table">
@@ -60,39 +63,43 @@
                         <input type="hidden" name="product_id" id="product_id">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" required name="name" id="name" placeholder="Enter name">
+                            <input type="text" class="form-control" required name="name" id="name"
+                                placeholder="Enter name">
                         </div>
                         <div class="form-group">
                             <label for="name">Category</label>
                             <select name="category_id" id="category_id" class="form-control">
                                 @isset($dropdowns)
-                                    @foreach ($dropdowns as $item)
-                                        <option value="{{ $item['value'] }}">{{ $item['label'] }}</option>
-                                    @endforeach
+                                @foreach ($dropdowns as $item)
+                                <option value="{{ $item['value'] }}">{{ $item['label'] }}</option>
+                                @endforeach
                                 @endisset
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="name">Price</label>
-                            <input type="text" class="form-control" required name="price" id="price" placeholder="Enter Price">
+                            <input type="text" class="form-control" required name="price" id="price"
+                                placeholder="Enter Price">
                         </div>
                         <div class="form-group">
                             <label for="name">Stock</label>
-                            <input type="text" class="form-control" required name="stock" id="stock" placeholder="Enter Stock">
+                            <input type="text" class="form-control" required name="stock" id="stock"
+                                placeholder="Enter Stock">
                         </div>
                         <div class="form-group">
                             <label for="name">Status</label>
                             <select name="status" id="status" class="form-control">
                                 @isset($status)
-                                    @foreach ($status as $item)
-                                        <option value="{{ $item }}">{{ $item }}</option>
-                                    @endforeach
+                                @foreach ($status as $item)
+                                <option value="{{ $item }}">{{ $item }}</option>
+                                @endforeach
                                 @endisset
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="name">Note</label>
-                            <textarea class="form-control" placeholder="Enter Note" name="note" id="note" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" placeholder="Enter Note" name="note" id="note" cols="30"
+                                rows="10"></textarea>
                         </div>
                     </div>
                     <!-- /.box-body -->

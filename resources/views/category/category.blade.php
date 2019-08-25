@@ -18,8 +18,11 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)" id="create_category">Add
+                    @if(auth()->user()->isAdmin !== 1)
+                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)"
+                        id="create_category">Add
                         Data</button>
+                    @endif
                 </div>
                 <div class="box-body">
                     <table class="table table-bordered" id="category_table">
@@ -54,7 +57,8 @@
                         <input type="hidden" name="category_id" id="category_id">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" class="form-control" required name="name" id="name" placeholder="Enter name">
+                            <input type="text" class="form-control" required name="name" id="name"
+                                placeholder="Enter name">
                         </div>
                     </div>
                     <!-- /.box-body -->

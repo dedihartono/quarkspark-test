@@ -168,10 +168,13 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
+                                @if(auth()->user()->isAdmin !== 1)
                                 <li><a href="{{ url('category') }}"><i class="fa fa-circle-o"></i> Category</a></li>
+                                @endif
                                 <li><a href="{{ url('product') }}"><i class="fa fa-circle-o"></i> Product</a></li>
                             </ul>
                         </li>
+                        @if(auth()->user()->isAdmin == 1)
                         <li class="treeview">
                             <a href="#">
                                 <i class="fa fa-users"></i> <span>Setting</span>
@@ -183,12 +186,14 @@
                                 <li><a href="{{ url('user') }}"><i class="fa fa-circle-o"></i> Users</a></li>
                             </ul>
                         </li>
+                        @endif
                     </ul>
                 </section>
                 <!-- /.sidebar -->
             </aside>
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
+                @if(\Session::has('error'))<div class="alert alert-danger">{{\Session::get('error')}}</div>@endif
                 @yield('content')
             </div>
             <!-- /.content-wrapper -->

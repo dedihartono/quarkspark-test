@@ -6,9 +6,11 @@ use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
 use DataTables;
+use App\Http\Controllers\MailController;
 
 class ProductController extends Controller
 {
+    protected $user_id;
     /**
     * Create a new controller instance.
     *
@@ -39,19 +41,26 @@ class ProductController extends Controller
          */
     public function store(Request $request)
     {
+        $this->user_id = auth()->user()->id;
+
         $productId = $request->product_id;
+
         Product::updateOrCreate(
             ['id' => $productId],
             [
                 'name' => $request->name,
                 'category_id' => $request->category_id,
-                'user_id' => 1,
+                'user_id' => $this->user_id,
                 'price' => $request->price,
                 'stock' => $request->stock,
                 'note' => $request->note,
                 'status' => $request->status,
             ]
         );
+        if ($request->status == 'WAITING') {
+            $this->sendMail('PRODUCT', 'dedihartono1993@gmail.com', 'nonename1k@gmail.com', 'test', 'test', 'hello there');
+        }
+
         return response()->json(['success'=>'Product saved successfully.']);
     }
 
@@ -90,14 +99,16 @@ class ProductController extends Controller
      */
     public function json()
     {
-        return Datatables::of(Product::with('category')->get())
+        $this->user_id = auth()->user()->id;
+
+        return Datatables::of(Product::with('category')->where('user_id', $this->user_id)->get())
             ->addColumn('action', function ($data) {
                 return view('product.action_button', $data);
             })
             ->addColumn('status', function ($data) {
                 return view('product.status', $data);
             })
-            ->addColumn('category', function($data){
+            ->addColumn('category', function ($data) {
                 return $data->category->name ?? '';
             })
             ->rawColumns(['action','category','status'])
@@ -123,9 +134,15 @@ class ProductController extends Controller
     {
         $data = [];
         $status = ['WAITING', 'APPROVE', 'REJECT'];
-        foreach($status as $key => $value){
+        foreach ($status as $key => $value) {
             $data[$key] = $value;
         }
         return $data;
+    }
+
+    protected function sendMail($to_name, $to_mail, $from, $subject, $title, $data)
+    {
+        $mail = new MailController;
+        $mail->index($to_name, $to_mail, $from, $subject, $title, $data);
     }
 }

@@ -110,7 +110,7 @@ class UserController extends Controller
      */
     public function json()
     {
-        return Datatables::of(User::withTrashed()->where('role', '!=', 'admin')->get())
+        return Datatables::of(User::withTrashed()->where('isAdmin', '!=', '1')->get())
             ->addColumn('action', function ($data) {
                 return view('user.action_button', $data);
             })
