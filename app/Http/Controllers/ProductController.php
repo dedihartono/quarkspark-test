@@ -57,9 +57,12 @@ class ProductController extends Controller
                 'status' => $request->status,
             ]
         );
-        // if ($request->status == 'WAITING') {
-        //     $this->sendMail('PRODUCT', 'dedihartono1993@gmail.com', 'nonename1k@gmail.com', 'test', 'test', 'hello there');
-        // }
+
+        if (env('APP_ENV') == 'production') {
+            if ($request->status == 'WAITING') {
+                $this->sendMail('PRODUCT', 'dedihartono1993@gmail.com', 'nonename1k@gmail.com', 'test', 'test', 'hello there');
+            }
+        }
 
         return response()->json(['success'=>'Product saved successfully.']);
     }
