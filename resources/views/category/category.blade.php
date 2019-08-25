@@ -18,7 +18,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button type="button" class="btn btn-primary" href="javascript:void(0)" id="create_category">Add
+                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)" id="create_category">Add
                         Data</button>
                 </div>
                 <div class="box-body">
@@ -30,7 +30,7 @@
                                 <th>Name</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Action</th>
+                                <th width="10%">Action</th>
                             </tr>
                         </thead>
                     </table>

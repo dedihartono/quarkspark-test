@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('note')->nullable()->default(null);
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('user_id');
+            $table->string('status', 8);
             $table->foreign('category_id')->references('id')->on('category');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

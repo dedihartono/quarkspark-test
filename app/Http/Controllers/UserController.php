@@ -72,9 +72,35 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::where('id', $id)->delete();
+        User::where('id', $id)->forceDelete();
 
         return response()->json(['success'=>'User deleted successfully.']);
+    }
+
+    /**
+     * Softdelete the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed($id)
+    {
+        User::where('id', $id)->delete();
+
+        return response()->json(['success'=>'User deactive successfully.']);
+    }
+
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        User::where('id', $id)->restore();
+
+        return response()->json(['success'=>'User active successfully.']);
     }
 
     /**
@@ -84,11 +110,14 @@ class UserController extends Controller
      */
     public function json()
     {
-        return Datatables::of(User::where('role', '!=', 'admin')->get())
+        return Datatables::of(User::withTrashed()->where('role', '!=', 'admin')->get())
             ->addColumn('action', function ($data) {
                 return view('user.action_button', $data);
             })
-            ->rawColumns(['action'])
+            ->addColumn('status', function ($data) {
+                return view('user.status_button', $data);
+            })
+            ->rawColumns(['action','status'])
             ->addIndexColumn()
             ->make(true);
     }

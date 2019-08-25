@@ -29,5 +29,7 @@ Route::get('user', 'UserController@index')->name('user');
 Route::post('user/store', 'UserController@store')->name('user.store');
 Route::get('user/edit/{id}', 'UserController@edit')->name('user.edit');
 Route::get('user/delete/{id}', 'UserController@destroy')->name('user.destroy');
+Route::get('user/trashed/{id}', 'UserController@trashed')->name('user.trashed');
+Route::get('user/restore/{id}', 'UserController@restore')->name('user.restore');
 Route::get('user/json','UserController@json')->name('user.json');
 Route::get('mail', 'MailController@index')->name('mail');

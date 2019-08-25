@@ -18,7 +18,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button type="button" class="btn btn-primary" href="javascript:void(0)" id="create_user">Add
+                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)" id="create_user">Add
                         Data</button>
                 </div>
                 <div class="box-body">
@@ -29,6 +29,7 @@
                                 <th>NO</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th align="center">Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th width="10%">Action</th>
@@ -96,6 +97,7 @@
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false,searchable: false},
             { data: 'name', name: 'name' },
             { data: 'email', name: 'email' },
+            { data: 'status', name: 'status' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
             { data: 'action', name: 'action_button', orderable: false}
@@ -149,6 +151,34 @@
         confirm("Are You sure want to delete !");
         $.ajax({
             url: "{{ url('user/delete') }}/"+user_id,
+            success: function (data) {
+                table.draw();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+
+    $('body').on('click', '.deactive_user', function () {
+        var user_id = $(this).data("id");
+        confirm("Are You sure want to active !");
+        $.ajax({
+            url: "{{ url('user/restore') }}/"+user_id,
+            success: function (data) {
+                table.draw();
+            },
+            error: function (data) {
+                console.log('Error:', data);
+            }
+        });
+    });
+
+    $('body').on('click', '.active_user', function () {
+        var user_id = $(this).data("id");
+        confirm("Are You sure want to deactive !");
+        $.ajax({
+            url: "{{ url('user/trashed') }}/"+user_id,
             success: function (data) {
                 table.draw();
             },

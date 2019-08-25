@@ -18,10 +18,10 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <button type="button" class="btn btn-primary" href="javascript:void(0)" id="create_product">Add
+                    <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)" id="create_product">Add
                         Data</button>
                 </div>
-                <div class="box-body">
+                <div class="box-body table-responsice">
                     <table class="table table-bordered" id="product_table">
                         <thead>
                             <tr>
@@ -31,6 +31,7 @@
                                 <th>Category</th>
                                 <th>Price</th>
                                 <th>Stock</th>
+                                <th>Status</th>
                                 <th>Note</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -80,6 +81,16 @@
                             <input type="text" class="form-control" required name="stock" id="stock" placeholder="Enter Stock">
                         </div>
                         <div class="form-group">
+                            <label for="name">Status</label>
+                            <select name="status" id="status" class="form-control">
+                                @isset($status)
+                                    @foreach ($status as $item)
+                                        <option value="{{ $item }}">{{ $item }}</option>
+                                    @endforeach
+                                @endisset
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="name">Note</label>
                             <textarea class="form-control" placeholder="Enter Note" name="note" id="note" cols="30" rows="10"></textarea>
                         </div>
@@ -115,6 +126,7 @@
             { data: 'category', name: 'category' },
             { data: 'price', name: 'price' },
             { data: 'stock', name: 'stock' },
+            { data: 'status', name: 'status' },
             { data: 'note', name: 'note' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
@@ -141,6 +153,7 @@
             $('#category_id').val(data.category_id);
             $('#price').val(data.price);
             $('#stock').val(data.stock);
+            $('#status').val(data.status);
             $('#note').val(data.note);
         })
     });

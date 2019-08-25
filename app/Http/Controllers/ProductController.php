@@ -27,6 +27,7 @@ class ProductController extends Controller
     public function index()
     {
         $data['dropdowns'] = $this->getDataDropdown();
+        $data['status'] = $this->getDataStatus();
         return view('product.product', $data);
     }
 
@@ -48,6 +49,7 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'stock' => $request->stock,
                 'note' => $request->note,
+                'status' => $request->status,
             ]
         );
         return response()->json(['success'=>'Product saved successfully.']);
@@ -92,10 +94,13 @@ class ProductController extends Controller
             ->addColumn('action', function ($data) {
                 return view('product.action_button', $data);
             })
+            ->addColumn('status', function ($data) {
+                return view('product.status', $data);
+            })
             ->addColumn('category', function($data){
                 return $data->category->name ?? '';
             })
-            ->rawColumns(['category','action'])
+            ->rawColumns(['action','category','status'])
             ->addIndexColumn()
             ->make(true);
     }
@@ -112,5 +117,15 @@ class ProductController extends Controller
             }
         }
         return  $data;
+    }
+
+    protected function getDataStatus()
+    {
+        $data = [];
+        $status = ['WAITING', 'APPROVE', 'REJECT'];
+        foreach($status as $key => $value){
+            $data[$key] = $value;
+        }
+        return $data;
     }
 }
