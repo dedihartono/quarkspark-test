@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name', 64);
             $table->string('email', 64)->unique();
-            $table->boolean('isAdmin')->nullable();
+            $table->boolean('isAdmin')->dafault(0);
             $table->string('password', 128);
             $table->rememberToken();
             $table->softDeletes();
