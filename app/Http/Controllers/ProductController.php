@@ -99,21 +99,41 @@ class ProductController extends Controller
      */
     public function json()
     {
-        $this->user_id = auth()->user()->id;
+        return $this->getDataTables();
+    }
 
-        return Datatables::of(Product::with('category')->where('user_id', $this->user_id)->get())
-            ->addColumn('action', function ($data) {
-                return view('product.action_button', $data);
-            })
-            ->addColumn('status', function ($data) {
-                return view('product.status', $data);
-            })
-            ->addColumn('category', function ($data) {
-                return $data->category->name ?? '';
-            })
-            ->rawColumns(['action','category','status'])
-            ->addIndexColumn()
-            ->make(true);
+    protected function getDataTables()
+    {
+        $this->user_id = auth()->user()->id;
+        if (auth()->user()->isAdmin == 1) {
+            return Datatables::of(Product::with('category')->get())
+                ->addColumn('action', function ($data) {
+                    return view('product.action_button', $data);
+                })
+                ->addColumn('status', function ($data) {
+                    return view('product.status', $data);
+                })
+                ->addColumn('category', function ($data) {
+                    return $data->category->name ?? '';
+                })
+                ->rawColumns(['action','category','status'])
+                ->addIndexColumn()
+                ->make(true);
+        } else {
+            return Datatables::of(Product::with('category')->where('user_id', $this->user_id)->get())
+                ->addColumn('action', function ($data) {
+                    return view('product.action_button', $data);
+                })
+                ->addColumn('status', function ($data) {
+                    return view('product.status', $data);
+                })
+                ->addColumn('category', function ($data) {
+                    return $data->category->name ?? '';
+                })
+                ->rawColumns(['action','category','status'])
+                ->addIndexColumn()
+                ->make(true);
+        }
     }
 
     protected function getDataDropdown()

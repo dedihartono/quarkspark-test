@@ -168,7 +168,7 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                @if(auth()->user()->isAdmin !== 1)
+                                @if(auth()->user()->isAdmin == 1)
                                 <li><a href="{{ url('category') }}"><i class="fa fa-circle-o"></i> Category</a></li>
                                 @endif
                                 <li><a href="{{ url('product') }}"><i class="fa fa-circle-o"></i> Product</a></li>
