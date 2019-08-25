@@ -26,7 +26,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data['dropdowns'] = $this->getDataDropdown();
         $data['status'] = $this->getDataStatus();
@@ -58,9 +58,9 @@ class ProductController extends Controller
             ]
         );
 
-        if (env('APP_ENV') == 'production') {
+        if ($productId == null && $request->status == 'WAITING' && auth()->user()->isAdmin == 0) {
             if ($request->status == 'WAITING') {
-                $this->sendMail('PRODUCT', 'dedihartono1993@gmail.com', 'nonename1k@gmail.com', 'test', 'test', 'hello there');
+                $this->sendMail();
             }
         }
 
@@ -163,9 +163,9 @@ class ProductController extends Controller
         return $data;
     }
 
-    protected function sendMail($to_name, $to_mail, $from, $subject, $title, $data)
+    protected function sendMail()
     {
         $mail = new MailController;
-        $mail->index($to_name, $to_mail, $from, $subject, $title, $data);
+        $mail->index();
     }
 }

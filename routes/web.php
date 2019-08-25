@@ -25,6 +25,7 @@ Route::get('product/edit/{id}', 'ProductController@edit')->name('product.edit');
 Route::get('product/delete/{id}', 'ProductController@destroy')->name('product.destroy')->middleware('users');
 Route::get('product/json','ProductController@json')->name('product.json');
 Route::get('mail', 'MailController@index')->name('mail')->middleware('users');
+Route::post('mailsetsession', 'MailController@setSession')->name('mail.setSession');
 Route::get('user', 'UserController@index')->name('user')->middleware('admin');
 Route::post('user/store', 'UserController@store')->name('user.store')->middleware('admin');
 Route::get('user/edit/{id}', 'UserController@edit')->name('user.edit')->middleware('admin');

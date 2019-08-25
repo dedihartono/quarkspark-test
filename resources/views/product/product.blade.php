@@ -22,6 +22,8 @@
                     <button type="button" class="btn btn-primary btn-xs" href="javascript:void(0)"
                         id="create_product">Add
                         Data</button>
+                    <button class="btn btn-info btn-xs" id="create_verification">Set Verification Email
+                        (Optional)</button>
                     @endif
                 </div>
                 <div class="box-body table-responsice">
@@ -78,12 +80,12 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price</label>
-                            <input type="text" class="form-control" required name="price" id="price"
+                            <input type="number" class="form-control" required name="price" id="price"
                                 placeholder="Enter Price">
                         </div>
                         <div class="form-group">
                             <label for="stock">Stock</label>
-                            <input type="text" class="form-control" required name="stock" id="stock"
+                            <input type="number" class="form-control" required name="stock" id="stock"
                                 placeholder="Enter Stock">
                         </div>
                         <div class="form-group">
@@ -114,6 +116,37 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+
+<div class="modal fade" id="verification_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_header"></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="verification_form">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" value="{{ session('email_session') ?? '' }}"
+                                required name="email" id="email" placeholder="Enter email">
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="button" id="verification_button" value="create"
+                                class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
 <script>
     $(function() {
     $.ajaxSetup({
@@ -154,8 +187,6 @@
     $('body').on('click', '.edit_product', function () {
         let product_id = $(this).data('id');
         let isAdmin = "{{ auth()->user()->isAdmin }}";
-        console.log(isAdmin);
-        console.log(isAdmin != 0);
         $.get('{{ url("product/edit") }}/' + product_id , function (data) {
             $('#modal_header').html("Edit Product");
             $('#save_button').val("edit_product");
@@ -166,6 +197,7 @@
                 $('#category_id').val(data.category_id).attr('readonly', true);
                 $('#price').val(data.price).attr('readonly', true);
                 $('#stock').val(data.stock).attr('readonly', true);
+                $('#label_status').show();
                 $('#status').val(data.status).show().attr('readonly', false);
                 $('#note').val(data.note).attr('readonly', true);
             }else{
@@ -173,7 +205,8 @@
                 $('#category_id').val(data.category_id);
                 $('#price').val(data.price);
                 $('#stock').val(data.stock);
-                $('#status').val(data.status).attr('readonly', true);
+                $('#label_status').hide();
+                $('#status').val(data.status).hide().attr('readonly', true);
                 $('#note').val(data.note);
             }
         })
@@ -215,6 +248,34 @@
                 }
             });
         }
+    });
+
+    $('#create_verification').click(function () {
+        $('#verification_button').val("create_verification");
+        $('#modal_header').html("Set Verification Email (Optional)");
+        $('#verification_modal').modal('show');
+    });
+
+    $('#verification_button').click(function (e) {
+        e.preventDefault();
+        $(this).html('Sending..');
+
+        $.ajax({
+            data: $('#verification_form').serialize(),
+            url: "{{ url('mailsetsession') }}",
+            type: "POST",
+            dataType: 'json',
+            success: function (data) {
+                alert(data.success);
+                location.reload();
+                $('#verification_modal').modal('hide');
+                $('#verification_button').html('Submit');
+            },
+            error: function (data) {
+                console.log('Error:', data);
+                $('#verification_button').html('Submit');
+            }
+        });
     });
 });
 </script>
