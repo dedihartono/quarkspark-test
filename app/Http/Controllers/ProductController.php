@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 use App\Product;
 use DataTables;
@@ -25,7 +26,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('product.product');
+        $data['dropdowns'] = $this->getDataDropdown();
+        return view('product.product', $data);
     }
 
     /**
@@ -41,7 +43,7 @@ class ProductController extends Controller
             ['id' => $productId],
             [
                 'name' => $request->name,
-                'category_id' => 1,
+                'category_id' => $request->category_id,
                 'user_id' => 1,
                 'price' => $request->price,
                 'stock' => $request->stock,
@@ -86,12 +88,29 @@ class ProductController extends Controller
      */
     public function json()
     {
-        return Datatables::of(Product::get())
+        return Datatables::of(Product::with('category')->get())
             ->addColumn('action', function ($data) {
                 return view('product.action_button', $data);
             })
-            ->rawColumns(['action'])
+            ->addColumn('category', function($data){
+                return $data->category->name ?? '';
+            })
+            ->rawColumns(['category','action'])
             ->addIndexColumn()
             ->make(true);
+    }
+
+    protected function getDataDropdown()
+    {
+        $data = [];
+        $model = Category::all();
+
+        if (!empty($model)) {
+            foreach ($model as $key => $value) {
+                $data[$key]['value'] = $value->id;
+                $data[$key]['label'] = $value->name;
+            }
+        }
+        return  $data;
     }
 }

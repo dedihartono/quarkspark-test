@@ -28,9 +28,13 @@
                                 <th>ID</th>
                                 <th>NO</th>
                                 <th>Name</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Note</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th>Action</th>
+                                <th width="10%">Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -59,7 +63,13 @@
                         </div>
                         <div class="form-group">
                             <label for="name">Category</label>
-                            <input type="text" class="form-control" required name="category_id" id="category_id" placeholder="Enter Category">
+                            <select name="category_id" id="category_id" class="form-control">
+                                @isset($dropdowns)
+                                    @foreach ($dropdowns as $item)
+                                        <option value="{{ $item['value'] }}">{{ $item['label'] }}</option>
+                                    @endforeach
+                                @endisset
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="name">Price</label>
@@ -102,6 +112,10 @@
             { data: 'id', name: 'id' , 'visible':false},
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false,searchable: false},
             { data: 'name', name: 'name' },
+            { data: 'category', name: 'category' },
+            { data: 'price', name: 'price' },
+            { data: 'stock', name: 'stock' },
+            { data: 'note', name: 'note' },
             { data: 'created_at', name: 'created_at' },
             { data: 'updated_at', name: 'updated_at' },
             { data: 'action', name: 'action_button', orderable: false}
@@ -124,6 +138,7 @@
             $('#product_modal').modal('show');
             $('#product_id').val(data.id);
             $('#name').val(data.name);
+            $('#category_id').val(data.category_id);
             $('#price').val(data.price);
             $('#stock').val(data.stock);
             $('#note').val(data.note);
