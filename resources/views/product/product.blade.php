@@ -143,7 +143,7 @@
     });
 
     $('body').on('click', '.edit_product', function () {
-        var product_id = $(this).data('id');
+        let product_id = $(this).data('id');
         $.get('{{ url("product/edit") }}/' + product_id , function (data) {
             $('#modal_header').html("Edit Product");
             $('#save_button').val("edit_product");
@@ -181,17 +181,19 @@
     });
 
     $('body').on('click', '.delete_product', function () {
-        var product_id = $(this).data("id");
-        confirm("Are You sure want to delete !");
-        $.ajax({
-            url: "{{ url('product/delete') }}/"+product_id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        let product_id = $(this).data("id");
+        let conf = confirm("Are You sure want to delete !");
+        if (conf) {
+            $.ajax({
+                url: "{{ url('product/delete') }}/"+product_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
     });
 });
 </script>

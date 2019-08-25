@@ -147,45 +147,51 @@
     });
 
     $('body').on('click', '.delete_user', function () {
-        var user_id = $(this).data("id");
-        confirm("Are You sure want to delete !");
-        $.ajax({
-            url: "{{ url('user/delete') }}/"+user_id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        let user_id = $(this).data("id");
+        let conf = confirm("Are You sure want to delete !");
+        if (conf) {
+            $.ajax({
+                url: "{{ url('user/delete') }}/"+user_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
     });
 
     $('body').on('click', '.deactive_user', function () {
-        var user_id = $(this).data("id");
-        confirm("Are You sure want to active !");
-        $.ajax({
-            url: "{{ url('user/restore') }}/"+user_id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        let user_id = $(this).data("id");
+        let conf = confirm("Are You sure want to active !");
+        if (conf) {
+            $.ajax({
+                url: "{{ url('user/restore') }}/"+user_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
     });
 
     $('body').on('click', '.active_user', function () {
-        var user_id = $(this).data("id");
-        confirm("Are You sure want to deactive !");
-        $.ajax({
-            url: "{{ url('user/trashed') }}/"+user_id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        let user_id = $(this).data("id");
+        let conf = confirm("Are You sure want to deactive !");
+        if (conf) {
+            $.ajax({
+                url: "{{ url('user/trashed') }}/"+user_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
     });
 });
 </script>

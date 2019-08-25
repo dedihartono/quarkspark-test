@@ -100,7 +100,7 @@
     });
 
     $('body').on('click', '.edit_category', function () {
-        var category_id = $(this).data('id');
+        let category_id = $(this).data('id');
         $.get('{{ url("category/edit") }}/' + category_id , function (data) {
             $('#modal_header').html("Edit Category");
             $('#save_button').val("edit_category");
@@ -133,17 +133,19 @@
     });
 
     $('body').on('click', '.delete_category', function () {
-        var category_id = $(this).data("id");
-        confirm("Are You sure want to delete !");
-        $.ajax({
-            url: "{{ url('category/delete') }}/"+category_id,
-            success: function (data) {
-                table.draw();
-            },
-            error: function (data) {
-                console.log('Error:', data);
-            }
-        });
+        let category_id = $(this).data("id");
+        let conf = confirm("Are You sure want to delete !");
+        if (conf) {
+            $.ajax({
+                url: "{{ url('category/delete') }}/"+category_id,
+                success: function (data) {
+                    table.draw();
+                },
+                error: function (data) {
+                    console.log('Error:', data);
+                }
+            });
+        }
     });
 });
 </script>
