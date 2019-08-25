@@ -37,13 +37,12 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $userId = $request->user_id;
-        $role = 'user';
         User::updateOrCreate(
             ['id' => $userId],
             [
                 'name' => $request->name,
                 'email' => $request->email,
-                'role' => $role,
+                'isAdmin' => 0,
                 'password' => password_hash($request->password, PASSWORD_BCRYPT),
             ]);
         return response()->json(['success'=>'User saved successfully.']);

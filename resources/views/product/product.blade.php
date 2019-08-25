@@ -67,7 +67,7 @@
                                 placeholder="Enter name">
                         </div>
                         <div class="form-group">
-                            <label for="name">Category</label>
+                            <label for="category">Category</label>
                             <select name="category_id" id="category_id" class="form-control">
                                 @isset($dropdowns)
                                 @foreach ($dropdowns as $item)
@@ -77,17 +77,17 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Price</label>
+                            <label for="price">Price</label>
                             <input type="text" class="form-control" required name="price" id="price"
                                 placeholder="Enter Price">
                         </div>
                         <div class="form-group">
-                            <label for="name">Stock</label>
+                            <label for="stock">Stock</label>
                             <input type="text" class="form-control" required name="stock" id="stock"
                                 placeholder="Enter Stock">
                         </div>
                         <div class="form-group">
-                            <label for="name">Status</label>
+                            <label id="label_status" for="status">Status</label>
                             <select name="status" id="status" class="form-control">
                                 @isset($status)
                                 @foreach ($status as $item)
@@ -97,7 +97,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="name">Note</label>
+                            <label for="note">Note</label>
                             <textarea class="form-control" placeholder="Enter Note" name="note" id="note" cols="30"
                                 rows="10"></textarea>
                         </div>
@@ -146,22 +146,34 @@
         $('#product_id').val('');
         $('#product_form').trigger("reset");
         $('#modal_header').html("Create Product");
+        $('#status').attr('readonly', true).hide();
+        $('#label_status').hide();
         $('#product_modal').modal('show');
     });
 
     $('body').on('click', '.edit_product', function () {
         let product_id = $(this).data('id');
+        let isAdmin = "{{ auth()->user()->isAdmin }}";
         $.get('{{ url("product/edit") }}/' + product_id , function (data) {
             $('#modal_header').html("Edit Product");
             $('#save_button').val("edit_product");
             $('#product_modal').modal('show');
             $('#product_id').val(data.id);
-            $('#name').val(data.name);
-            $('#category_id').val(data.category_id);
-            $('#price').val(data.price);
-            $('#stock').val(data.stock);
-            $('#status').val(data.status);
-            $('#note').val(data.note);
+            if(isAdmin != 0){
+                $('#name').val(data.name).attr('readonly', true);
+                $('#category_id').val(data.category_id).attr('readonly', true);
+                $('#price').val(data.price).attr('readonly', true);
+                $('#stock').val(data.stock).attr('readonly', true);
+                $('#status').val(data.status).show().attr('readonly', false);
+                $('#note').val(data.note).attr('readonly', true);
+            }else{
+                $('#name').val(data.name);
+                $('#category_id').val(data.category_id);
+                $('#price').val(data.price);
+                $('#stock').val(data.stock);
+                $('#status').val(data.status).attr('readonly', true);
+                $('#note').val(data.note);
+            }
         })
     });
 
